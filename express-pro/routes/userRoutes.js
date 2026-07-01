@@ -1,0 +1,11 @@
+const express=require("express");
+const router=express.Router();
+const{
+    login,
+    profile
+
+}=require("../controller/userController");
+
+router.post("/login",login);
+router.get(".profile",profile);
+module.exports=router;
