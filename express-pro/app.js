@@ -4,6 +4,8 @@ const express=require("express");
 const helmet=require("helmet");
 const cors=require("cors");
 const morgan=require("morgan");
+//const authRoutes
+const connectDB = require("./config/db");
 
 const logger=require("./middleware/logger");
 const errorHandler=require("./middleware/errorHandler");
@@ -16,29 +18,24 @@ const app=express();
 
 const PORT=process.env.PORT ||3000;
 
-//==========================
+
 //BUILT-IN-MIDDLEWARE
-//==========================
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-//=======================
 //THiRD PARTY MIDDLEWARE
-//=========================
 
 app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
 
-//========================
 //CUSTOM MIDDLEWARE
-//========================
 app.use(logger);
 
-//=======================
+
 // HOME ROUTE
-//========================
 app.get("/",(req,res)=>{
     res.status(200).json({
         success:true,
@@ -57,27 +54,20 @@ app.get("/health",(req,res)=>{
     });
 });
 
-
-// ==============================
 // API ROUTES
-// ==============================
 app.use("/api/v1/students", studentRoutes);
 app.use("/api/v1/users", userRoutes);
 
-
-//======================
 //404 middleware
-//======================
 app.use(notFound);
 
-//======================
 //ERROR MIDDLEWARE
-//======================
 app.use(errorHandler);
 
-//=====================
+// CONNECT DATABASE
+connectDB();
+
 //START SERVER
-//====================
 app.listen(PORT,()=>{
     console.log(`
         ============================
