@@ -156,8 +156,42 @@ const getProfile = async (req, res, next) => {
     }
 };
 
+// UPLOAD PROFILE IMAGE
+// PATCH /api/v1/auth/profile/image
+// PRIVATE
+const uploadProfileImage = async (req, res, next) => {
+    try {
+        if (!req.file) {
+            res.status(400);
+            throw new Error("Please upload an image");
+        }
+
+        const user = await User.findById(req.user._id);
+
+        if (!user) {
+            res.status(404);
+            throw new Error("User not found");
+        }
+
+        user.profileImage = req.file.path;
+
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Profile image uploaded successfully",
+            data: {
+                profileImage: user.profileImage
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
-    getProfile
+    getProfile,
+    uploadProfileImage
 };

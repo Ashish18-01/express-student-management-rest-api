@@ -60,7 +60,7 @@ app.use("/api/v1/users", userRoutes);
 // 404 middleware
 app.use(notFound);
 
-// Error middleware
+// Error middleware-
 app.use(errorHandler);
 
 // Connect database

@@ -6,5 +6,5 @@ node_modules/
 
 # Accidental Node files in parent folder
 ../node_modules/
-../package.json
-../package-lock.json
+
+uploads/
