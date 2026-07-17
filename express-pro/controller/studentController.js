@@ -1,10 +1,23 @@
+const APIFeatures = require("../utils/apiFeatures");
 const Student = require("../models/student");
 const sendResponse = require("../utils/response");
 
 // GET ALL STUDENTS
 const getStudents = async (req, res, next) => {
     try {
-        const students = await Student.find();
+
+        const features = new APIFeatures(
+            Student,
+            req.query
+        )
+            .filter()
+            .search()
+            .buildQuery()
+            .sort()
+            .limitFields()
+            .paginate();
+
+        const students = await features.query;
 
         sendResponse(
             res,
@@ -13,6 +26,7 @@ const getStudents = async (req, res, next) => {
             "All Students",
             students
         );
+
     } catch (error) {
         next(error);
     }
