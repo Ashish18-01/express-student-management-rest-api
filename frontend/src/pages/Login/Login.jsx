@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./Login.css";
+import Button from "../../components/common/Button/Button";
+import Input from "../../components/common/Input/Input";
 
 function Login() {
 
@@ -28,34 +30,30 @@ function Login() {
                 <form onSubmit={handleSubmit}>
 
                     <div className="form-group">
-
-                        <label>Email</label>
-
-                        <input
+                        <Input
+                            label="Email"
                             type="email"
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
-
                     </div>
 
                     <div className="form-group">
-
-                        <label>Password</label>
-
-                        <input
+                        <Input
+                            label="Password"
                             type="password"
                             placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
-
                     </div>
 
-                    <button type="submit">
+                    <Button type="submit">
                         Login
-                    </button>
+                    </Button>
 
                 </form>
 
