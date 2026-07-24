@@ -25,6 +25,7 @@ const PORT = process.env.PORT || 3000;
 
 // Built-in middleware
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 app.use(express.urlencoded({ extended: true }));
 
 // Third-party middleware

@@ -123,7 +123,9 @@ const loginUser = async (req, res, next) => {
                     id: user._id,
                     username: user.username,
                     email: user.email,
-                    role: user.role
+                    role: user.role,
+                    profileImage: user.profileImage,
+                    createdAt: user.createdAt
                 },
                 token
             }
@@ -147,6 +149,7 @@ const getProfile = async (req, res, next) => {
                     username: req.user.username,
                     email: req.user.email,
                     role: req.user.role,
+                    profileImage: req.user.profileImage,
                     createdAt: req.user.createdAt
                 }
             }
